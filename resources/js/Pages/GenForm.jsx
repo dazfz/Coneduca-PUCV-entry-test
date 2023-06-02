@@ -23,8 +23,9 @@ const GenForm = () => {
         const { name, value } = event.target;
         setFormData((prevFormData) => ({
             ...prevFormData,
-            [name]: value,
+            [name]: value, // cambiar la propiedad que tenga ese nombre
         }));
+
         setCopied(false);
     };
 
@@ -76,23 +77,26 @@ const GenForm = () => {
     const handleCopy = async () => {
         const par = document.getElementById("generado");
         if (par) {
-            const text = par.innerText;
+            const text = par.innerText; // extraer el texto
             try {
-                await navigator.clipboard.writeText(text);
+                await navigator.clipboard.writeText(text); // copiar al portapapeles
                 setCopied(true);
             } catch (error) {}
         }
     };
 
+    // evito usar formData.prop
     const { nombre, apellido1, apellido2, areas, hobbies, correo, telefono } =
         formData;
 
+    // Texto areas y hobbies, separados por coma y el ultimo con una y
     const hobbiesText = hobbies.join(", ");
     const areasText = areas.join(", ");
 
     let hobbiesDisplay = hobbiesText;
     if (hobbies.length > 1) {
         const lastIndex = hobbies.length - 1;
+        // subarreglo excepto el ultimo elem, se unen con comas, luego hay una "y" y finalmente el ultimo elem
         hobbiesDisplay = `${hobbies.slice(0, lastIndex).join(", ")} y ${
             hobbies[lastIndex]
         }`;
@@ -117,7 +121,6 @@ const GenForm = () => {
                     el texto.
                 </h4>
             </header>
-
             <form
                 onSubmit={handleSubmit}
                 className="flex flex-col gap-5 flex-wrap"
@@ -162,7 +165,7 @@ const GenForm = () => {
                         <MIE message={apellido2.trim() === ""} />
                     </div>
                 </fieldset>
-                <div>
+                <fieldset>
                     <MIL>Áreas de Interés laboral</MIL>
                     {areas.map((valor, index) => (
                         <div key={index} className="py-1">
@@ -185,8 +188,8 @@ const GenForm = () => {
                     >
                         Añadir otra
                     </MPB>
-                </div>
-                <div>
+                </fieldset>
+                <fieldset>
                     <MIL>Hobbies</MIL>
                     {hobbies.map((valor, index) => (
                         <div key={index} className="py-2">
@@ -209,7 +212,7 @@ const GenForm = () => {
                     >
                         Añadir otro
                     </MPB>
-                </div>
+                </fieldset>
                 <fieldset className="hor-inputs">
                     <div>
                         <MIL htmlFor="correo">Correo electrónico</MIL>
@@ -246,6 +249,7 @@ const GenForm = () => {
                 </MPB>
             </form>
 
+            {/* MODAL */}
             <MM show={showModal} onClose={() => setShowModal(false)}>
                 <header className="flex justify-between p-3">
                     <h3 className="font-bold leading-tight">
