@@ -3,6 +3,7 @@
 ## Descripción
 
 Generador de texto a partir de datos de un formulario que debe ser completado. Al entregar el formulario, se generara el texto que se podrá copiar.
+
 ![laravel,php,react,tailwind,sqlite](https://skillicons.dev/icons?i=laravel,php,react,tailwind,sqlite)
 
 ## Instrucciones
